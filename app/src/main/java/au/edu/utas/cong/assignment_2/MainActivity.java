@@ -2,19 +2,21 @@ package au.edu.utas.cong.assignment_2;
 
 
 import android.Manifest;
-import android.content.ContentProvider;
 import android.content.ContentResolver;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.media.ThumbnailUtils;
+import android.location.Address;
+import android.location.Criteria;
+import android.location.Geocoder;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.net.Uri;
-import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -23,17 +25,13 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
-
-import static au.edu.utas.cong.assignment_2.Camera.REQUEST_IMAGE_CAPTURE;
+import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -88,11 +86,99 @@ public class MainActivity extends AppCompatActivity {
         });
 
        // ImageButton btnShare = findViewById(R.id.imgBShare);
-
-
         ImageView myImageView = findViewById(R.id.myImageView);
-    }
 
+        /**
+         * get Location info starts
+         */
+        TextView locationInfo =findViewById(R.id.txtLocation);
+        LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        List<String> providerList = lm.getProviders(true);
+        Log.e("TAG",providerList.size()+"");
+        for (int i = 0; i< providerList.size();i++){
+            Log.e("TAG: ",providerList.get(i));
+        }
+//        String provider = lm.GPS_PROVIDER;
+//        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)!=PackageManager.PERMISSION_GRANTED
+//                && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)!=PackageManager.PERMISSION_GRANTED){
+//            location.setText("NO permission");
+//        }
+//        else{
+//            location.setText(lm.getLastKnownLocation(provider).toString());
+//        }
+        Criteria criteria = new Criteria();
+        criteria.setAccuracy(Criteria.ACCURACY_FINE);
+        criteria.setAltitudeRequired(false);
+        criteria.setBearingRequired(false);
+        criteria.setCostAllowed(true);
+        criteria.setPowerRequirement(Criteria.POWER_LOW);
+        String provider = lm.getBestProvider(criteria,true);
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)!=PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)!=PackageManager.PERMISSION_GRANTED){
+            locationInfo.setText("No permission");
+            return;
+        }
+        Location location = lm.getLastKnownLocation(provider);
+        updateWithNewLocation(location);
+        lm.requestLocationUpdates(provider, 2000, 10, locationListener);
+    }
+    private  final LocationListener locationListener = new LocationListener() {
+        @Override
+        public void onLocationChanged(android.location.Location location) {
+            updateWithNewLocation(location);
+        }
+
+        @Override
+        public void onStatusChanged(String provider, int status, Bundle extras) {
+
+        }
+
+        @Override
+        public void onProviderEnabled(String provider) {
+
+        }
+
+        @Override
+        public void onProviderDisabled(String provider) {
+            updateWithNewLocation(null);
+        }
+    };
+    private void updateWithNewLocation(android.location.Location location){
+      String latLongString;
+      TextView locationInfo = findViewById(R.id.txtLocation);
+      if (location!=null){
+          double lat = location.getLatitude();
+          double lng = location.getLongitude();
+
+          Geocoder geocoder = new Geocoder(this);
+          List places = null;
+          try{
+              places = geocoder.getFromLocation(location.getLatitude(),location.getLongitude(),5);
+              //  test
+              //  Toast.makeText(this,places.size()+"", Toast.LENGTH_LONG).show();
+              Log.e("Places size",places.size()+"");
+          } catch (IOException e) {
+              e.printStackTrace();
+          }
+          String placename  = "";
+          if (places!=null&& places.size()>0){
+              placename = ((Address)places.get(0)).getAddressLine(0);
+          }
+          latLongString = "Latitude: "+lat+"/nLongtitude: "+lng;
+          locationInfo.setText(placename);
+          Log.e("current location info: ", ((Address)places.get(0)).getAddressLine(0));
+
+          //Toast.makeText(this,placename,Toast.LENGTH_LONG).show();
+      }else{
+          locationInfo.setText("Cant get location info");
+      }
+
+      /**
+       * GET locationINFO function ends
+       */
+
+
+    }
     /**
      * Camera function
      * Open camera function, share image   /  then share entry with text info and image together.
@@ -144,13 +230,7 @@ public class MainActivity extends AppCompatActivity {
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
-    String mCurrentPhotoPath;
-    private  void setPic(ImageView myImageView, String path){
 
 
-
-
-
-    }
 
 }
