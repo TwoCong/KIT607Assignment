@@ -9,7 +9,7 @@
     <EditText
         android:id="@+id/editText"
         android:layout_width="389dp"
-        android:layout_height="279dp"
+        android:layout_height="174dp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         android:background="#ffffff"
@@ -18,10 +18,10 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.727"
+        app:layout_constraintHorizontal_bias="0.482"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView"
-        app:layout_constraintVertical_bias="0.275" />
+        app:layout_constraintVertical_bias="0.205" />
 
     <TextView
         android:id="@+id/textView"
@@ -40,7 +40,7 @@
         app:layout_constraintEnd_toEndOf="@+id/txtdate"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnLogtimeline" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/txtdate"
@@ -57,9 +57,10 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/editText"
         app:layout_constraintEnd_toStartOf="@+id/txttime"
+        app:layout_constraintHorizontal_bias="0.347"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView"
-        app:layout_constraintVertical_bias="1.0"
+        app:layout_constraintVertical_bias="0.333"
         tools:text="@tools:sample/date/ddmmyy" />
 
     <Button
@@ -94,23 +95,62 @@
 
     <ImageButton
         android:id="@+id/imgBCameraTurn"
-        android:layout_width="108dp"
-        android:layout_height="76dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="60dp"
-        android:layout_marginRight="60dp"
+        android:layout_width="73dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="116dp"
+        android:layout_marginRight="116dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/myImageView"
         app:layout_constraintTop_toBottomOf="@+id/editText"
         app:srcCompat="@android:drawable/ic_menu_camera" />
 
     <ImageView
         android:id="@+id/myImageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
+        android:layout_width="143dp"
+        android:layout_height="184dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginLeft="28dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@+id/editText"
         app:layout_constraintTop_toBottomOf="@+id/editText"
         app:srcCompat="@mipmap/ic_launcher" />
+
+    <ImageButton
+        android:id="@+id/imgBAdd"
+        android:layout_width="67dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="128dp"
+        app:layout_constraintBottom_toBottomOf="@+id/imgBCameraTurn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/imgBCameraTurn"
+        app:layout_constraintTop_toTopOf="@+id/imgBCameraTurn"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@android:drawable/ic_menu_add" />
+
+    <TextView
+        android:id="@+id/txtVPath"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="56dp"
+        android:text="Path"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/imgBAdd"
+        app:layout_constraintStart_toStartOf="@+id/imgBCameraTurn" />
 
 
 </android.support.constraint.ConstraintLayout>
