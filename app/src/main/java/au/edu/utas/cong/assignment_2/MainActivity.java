@@ -3,12 +3,10 @@ package au.edu.utas.cong.assignment_2;
 
 import android.Manifest;
 import android.content.ContentResolver;
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.location.Address;
 import android.location.Criteria;
@@ -24,6 +22,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -32,11 +31,12 @@ import android.widget.Toast;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import au.edu.utas.cong.assignment_2.SQLite.JournalEntry;
-import au.edu.utas.cong.assignment_2.SQLite.JournalEntryHelper;
 import au.edu.utas.cong.assignment_2.SQLite.JournalEntryManager;
 
 
@@ -52,6 +52,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //If this is no image selected, hide imageView
+        ImageView myImageView = findViewById(R.id.myImageView);
+        myImageView.setVisibility(View.INVISIBLE);
+
         Button locationPageButton = findViewById(R.id.btnLogtimeline);
         locationPageButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,15 +66,15 @@ public class MainActivity extends AppCompatActivity {
 
 
         });
-
-        Calendar calendar = Calendar.getInstance();
-        final String currentDate = DateFormat.getDateInstance().format(calendar.getTime());
-        ///  String time = "Current Time;" + format.format(calendar.getTime());
-
-
-
-        TextView textViewDate = findViewById(R.id.txtdate);
-        textViewDate.setText(currentDate);
+        //Get Time data
+        SimpleDateFormat sd=new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        final String currentDate =sd.format(new Date(System.currentTimeMillis()));
+        TextView date = findViewById(R.id.txtVDate);
+        date.setText(currentDate);
+        Log.e("Date",currentDate);
+        final EditText eTxtTitle = findViewById(R.id.eTxtTitle);
+        final EditText eTxtBodytxt = findViewById(R.id.eTxtBodyText);
+        final TextView path = findViewById(R.id.txtVPath);
 
         ImageButton cameraTurn = findViewById(R.id.imgBCameraTurn);
         cameraTurn.setOnClickListener(new View.OnClickListener() {
@@ -90,8 +94,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
        // ImageButton btnShare = findViewById(R.id.imgBShare);
-        ImageView myImageView = findViewById(R.id.myImageView);
-
         /**
          * get Location info starts
          */
@@ -115,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
             locationInfo.setText("No permission");
             return;
         }
-        Location location = lm.getLastKnownLocation(provider);
+        final Location location = lm.getLastKnownLocation(provider);
         updateWithNewLocation(location);
         lm.requestLocationUpdates(provider, 2000, 10, locationListener);
 
@@ -130,17 +132,24 @@ public class MainActivity extends AppCompatActivity {
         btnOk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                JournalEntryManager mgr = new JournalEntryManager(MainActivity.this);
-                JournalEntry jEntry = new JournalEntry();
-                jEntry.setTitle("title");
-                jEntry.setBodyText("BodyText");
-                jEntry.setMood(1);
-                jEntry.setDate(currentDate);
-                jEntry.setLocation("20 Sandy Bay");
-                jEntry.setImage("/image/*");
-                mgr.addEntry(jEntry);
+
+                //Test the entry data
+                Log.e("Title test ",eTxtTitle.getText().toString());
+                Log.e("bodytext test", eTxtBodytxt.getText().toString());
+                Log.e("Time test ",currentDate);
+                Log.e("location test ",updateWithNewLocation(location));
+                Log.e("Path test", path.getText().toString());
+//                JournalEntryManager mgr = new JournalEntryManager(MainActivity.this);
+//                JournalEntry jEntry = new JournalEntry();
+//                jEntry.setTitle("title");
+//                jEntry.setBodyText("BodyText");
+//                jEntry.setMood(1);
+//                jEntry.setDate(currentDate);
+//                jEntry.setLocation("20 Sandy Bay");
+//                jEntry.setImage("/image/*");
+//                mgr.addEntry(jEntry);
                // showToast(mgr);
-                Log.e("Finish","Image");
+
 //                ContentValues cv = new ContentValues();
 //                cv.put("date",currentDate);
 //                cv.put("title","title");
@@ -156,9 +165,6 @@ public class MainActivity extends AppCompatActivity {
          Toast.makeText(this,jeM.query().get(0).image+" ",Toast.LENGTH_LONG).show();
 
     }
-
-
-
     private  final LocationListener locationListener = new LocationListener() {
         @Override
         public void onLocationChanged(android.location.Location location) {
@@ -180,20 +186,19 @@ public class MainActivity extends AppCompatActivity {
             updateWithNewLocation(null);
         }
     };
-    private void updateWithNewLocation(android.location.Location location) {
-        String latLongString;
+    private String updateWithNewLocation(android.location.Location location) {
         TextView locationInfo = findViewById(R.id.txtLocation);
+
         if (location != null) {
             double lat = location.getLatitude();
             double lng = location.getLongitude();
-
             Geocoder geocoder = new Geocoder(this);
             List places = null;
             try {
                 places = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 5);
                 //  test
                 //  Toast.makeText(this,places.size()+"", Toast.LENGTH_LONG).show();
-                Log.e("Places size", places.size() + "");
+                //Log.e("Places size", places.size() + "");
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -201,15 +206,13 @@ public class MainActivity extends AppCompatActivity {
             if (places != null && places.size() > 0) {
                 placename = ((Address) places.get(0)).getAddressLine(0);
             }
-            latLongString = "Latitude: " + lat + "/nLongtitude: " + lng;
             locationInfo.setText(placename);
-            Log.e("current location info: ", ((Address) places.get(0)).getAddressLine(0));
-
-            //Toast.makeText(this,placename,Toast.LENGTH_LONG).show();
+            //Log.e("current location info: ", ((Address) places.get(0)).getAddressLine(0));
+            return placename;
         } else {
             locationInfo.setText("Cant get location info");
+            return "";
         }
-
     }
     /**
      * GET locationINFO function ends
@@ -242,22 +245,16 @@ public class MainActivity extends AppCompatActivity {
                 Uri originaUri = data.getData();
                 bm = MediaStore.Images.Media.getBitmap(resolver,originaUri);
                 ImageView myImageView = findViewById(R.id.myImageView);
-
+                //myImageView.setVisibility(View.INVISIBLE);
                 myImageView.setImageBitmap(Bitmap.createScaledBitmap(bm,myImageView.getWidth(),myImageView.getHeight(),false));
-
-
-
+                myImageView.setVisibility(View.VISIBLE);
                 String[] proj = {MediaStore.Images.Media.DATA};
                 Cursor cursor = managedQuery(originaUri, proj,null,null,null);
-
                 int column_index= cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
                 cursor.moveToFirst();
                 String path = cursor.getString(column_index);
                 TextView tv= findViewById(R.id.txtVPath);
                 tv.setText(path);
-
-
-
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             } catch (IOException e) {
@@ -268,8 +265,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         super.onActivityResult(requestCode, resultCode, data);
+
     }
-
-
 
 }

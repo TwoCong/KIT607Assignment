@@ -2,24 +2,17 @@ package au.edu.utas.cong.assignment_2;
 
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
-import au.edu.utas.cong.assignment_2.MainActivity;
-import au.edu.utas.cong.assignment_2.R;
 import au.edu.utas.cong.assignment_2.SQLite.JournalEntry;
 import au.edu.utas.cong.assignment_2.SQLite.JournalEntryManager;
 
@@ -76,7 +69,7 @@ public class TimeLine extends AppCompatActivity {
                 R.layout.entry_list_item,//每一行的布局
                 new String[] {"date","date"},
 //数组中的数据源的键对应到定义布局的View中
-                new int[] {R.id.txtVTitle,R.id.txtVBodyText});
+                new int[] {R.id.eTxtTitle,R.id.txtVBodyText});
 
 //为ListView绑定适配器
         entryList.setAdapter(mSimpleAdapter);

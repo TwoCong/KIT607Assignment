@@ -29,7 +29,7 @@ public class JEntryAdapter extends ArrayAdapter<JournalEntry> {
         ImageView mood = row.findViewById(R.id.imgVMood);
         TextView date = row.findViewById(R.id.txtVDate);
         TextView time = row.findViewById(R.id.txtVTime);
-        TextView title = row.findViewById(R.id.txtVTitle);
+        TextView title = row.findViewById(R.id.eTxtTitle);
         ImageButton share = row.findViewById(R.id.imgBShare);
         TextView bodyText = row.findViewById(R.id.txtVBodyText);
         ImageView picture = row.findViewById(R.id.imgVPicture);

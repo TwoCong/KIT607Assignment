@@ -7,24 +7,21 @@
     tools:context=".MainActivity">
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/eTxtBodyText"
         android:layout_width="389dp"
         android:layout_height="63dp"
         android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
         android:background="#ffffff"
         android:ems="10"
         android:inputType="textMultiLine"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.482"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
-        app:layout_constraintVertical_bias="0.205" />
+        app:layout_constraintTop_toBottomOf="@+id/txtVDate" />
 
-    <TextView
-        android:id="@+id/textView"
+    <EditText
+        android:id="@+id/eTxtTitle"
         android:layout_width="99dp"
         android:layout_height="45dp"
         android:layout_marginStart="144dp"
@@ -32,36 +29,33 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:text="Entry"
         android:textAllCaps="true"
         android:textColor="@color/colorPrimary"
-        android:textSize="20sp"
+        android:textSize="10sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/txtdate"
+        app:layout_constraintEnd_toEndOf="@+id/txtVDate"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/txtdate"
-        android:layout_width="160dp"
+        android:id="@+id/txtVDate"
+        android:layout_width="205dp"
         android:layout_height="49dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
         android:ems="10"
-        android:inputType="none|text"
+        android:inputType="none"
         android:textAllCaps="true"
         android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/editText"
-        app:layout_constraintEnd_toStartOf="@+id/txttime"
-        app:layout_constraintHorizontal_bias="0.347"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.05"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
-        app:layout_constraintVertical_bias="0.333"
-        tools:text="@tools:sample/date/ddmmyy" />
+        app:layout_constraintTop_toBottomOf="@+id/btnLogtimeline" />
 
     <Button
         android:id="@+id/btnLogtimeline"
@@ -82,48 +76,33 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@android:drawable/ic_menu_share" />
 
-    <EditText
-        android:id="@+id/txttime"
-        android:layout_width="153dp"
-        android:layout_height="46dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
-        android:ems="10"
-        android:inputType="time"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/txtdate" />
-
     <ImageButton
         android:id="@+id/imgBCameraTurn"
         android:layout_width="73dp"
-        android:layout_height="50dp"
+        android:layout_height="52dp"
         android:layout_marginStart="32dp"
         android:layout_marginLeft="32dp"
-        android:layout_marginTop="68dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.032"
+        android:layout_marginTop="8dp"
         app:layout_constraintStart_toEndOf="@+id/myImageView"
-        app:layout_constraintTop_toBottomOf="@+id/editText"
-        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintTop_toTopOf="@+id/myImageView"
         app:srcCompat="@android:drawable/ic_menu_camera" />
 
     <ImageView
         android:id="@+id/myImageView"
         android:layout_width="158dp"
-        android:layout_height="216dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginLeft="24dp"
+        android:layout_height="195dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="24dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/editText"
-        app:layout_constraintTop_toBottomOf="@+id/editText"
-        app:layout_constraintVertical_bias="0.293"
-        app:srcCompat="@mipmap/ic_launcher" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.037"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imgESad"
+        app:srcCompat="@drawable/imageicon" />
 
     <ImageButton
         android:id="@+id/imgBAdd"
@@ -133,13 +112,12 @@
         android:layout_marginLeft="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:layout_marginBottom="128dp"
         app:layout_constraintBottom_toBottomOf="@+id/imgBCameraTurn"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.384"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/imgBCameraTurn"
         app:layout_constraintTop_toTopOf="@+id/imgBCameraTurn"
-        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintVertical_bias="1.0"
         app:srcCompat="@android:drawable/ic_menu_add" />
 
     <TextView
@@ -151,31 +129,12 @@
         android:layout_marginTop="28dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
-        android:text="Path"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/imgBAdd"
-        app:layout_constraintHorizontal_bias="0.542"
         app:layout_constraintStart_toStartOf="@+id/imgBCameraTurn"
-        app:layout_constraintTop_toBottomOf="@+id/imgBCameraTurn"
-        app:layout_constraintVertical_bias="0.08" />
+        app:layout_constraintTop_toBottomOf="@+id/imgBCameraTurn" />
 
     <TextView
         android:id="@+id/txtLocation"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
-        android:text="LOCATION"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/btnOk"
-        app:layout_constraintStart_toStartOf="@+id/myImageView"
-        app:layout_constraintTop_toBottomOf="@+id/myImageView" />
-
-    <Button
-        android:id="@+id/btnOk"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -184,14 +143,124 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
-        android:text="OK"
-        android:textColor="@color/colorAccent"
+        android:text="LOCATION"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/imgBAdd"
-        app:layout_constraintHorizontal_bias="0.654"
-        app:layout_constraintStart_toEndOf="@+id/myImageView"
-        app:layout_constraintTop_toBottomOf="@+id/imgBCameraTurn"
-        app:layout_constraintVertical_bias="0.692" />
+        app:layout_constraintHorizontal_bias="0.546"
+        app:layout_constraintStart_toStartOf="@+id/myImageView"
+        app:layout_constraintTop_toBottomOf="@+id/myImageView"
+        app:layout_constraintVertical_bias="0.428" />
+
+    <Button
+        android:id="@+id/btnOk"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="24dp"
+        android:text="OK"
+        android:textColor="@color/colorAccent"
+        app:layout_constraintBottom_toBottomOf="@+id/myImageView"
+        app:layout_constraintEnd_toEndOf="@+id/imgBAdd"
+        app:layout_constraintHorizontal_bias="0.545"
+        app:layout_constraintStart_toStartOf="@+id/imgBCameraTurn" />
+
+    <ImageView
+        android:id="@+id/imgESad"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/eTxtBodyText"
+        app:srcCompat="@drawable/extremesad" />
+
+    <ImageView
+        android:id="@+id/imgVSad"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/imgESad"
+        app:layout_constraintStart_toEndOf="@+id/imgESad"
+        app:layout_constraintTop_toTopOf="@+id/imgESad"
+        app:srcCompat="@drawable/verysad" />
+
+    <ImageView
+        android:id="@+id/imgSad"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/imgVSad"
+        app:layout_constraintStart_toEndOf="@+id/imgVSad"
+        app:layout_constraintTop_toTopOf="@+id/imgVSad"
+        app:srcCompat="@drawable/sad" />
+
+    <ImageView
+        android:id="@+id/imgChill"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/imgSad"
+        app:layout_constraintStart_toEndOf="@+id/imgSad"
+        app:layout_constraintTop_toTopOf="@+id/imgSad"
+        app:srcCompat="@drawable/chill" />
+
+    <ImageView
+        android:id="@+id/imgHappy"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/imgChill"
+        app:layout_constraintStart_toEndOf="@+id/imgChill"
+        app:layout_constraintTop_toTopOf="@+id/imgChill"
+        app:srcCompat="@drawable/happy" />
+
+    <ImageView
+        android:id="@+id/imgVHappy"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/imgHappy"
+        app:layout_constraintStart_toEndOf="@+id/imgHappy"
+        app:layout_constraintTop_toTopOf="@+id/imgHappy"
+        app:srcCompat="@drawable/veryhappy" />
+
+    <ImageView
+        android:id="@+id/imgEHappy"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/imgVHappy"
+        app:layout_constraintStart_toEndOf="@+id/imgVHappy"
+        app:layout_constraintTop_toTopOf="@+id/imgVHappy"
+        app:srcCompat="@drawable/extremehappy" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="Your Mood is: "
+        app:layout_constraintBottom_toTopOf="@+id/imgBCameraTurn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.356"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imgESad"
+        app:layout_constraintVertical_bias="0.666" />
 
 
 </android.support.constraint.ConstraintLayout>

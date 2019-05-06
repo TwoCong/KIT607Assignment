@@ -38,7 +38,7 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/txtVTitle"
+                android:id="@+id/eTxtTitle"
                 android:layout_width="212dp"
                 android:layout_height="match_parent"
 
