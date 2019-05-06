@@ -3,10 +3,12 @@ package au.edu.utas.cong.assignment_2;
 
 import android.Manifest;
 import android.content.ContentResolver;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.location.Address;
 import android.location.Criteria;
@@ -33,6 +35,10 @@ import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.List;
 
+import au.edu.utas.cong.assignment_2.SQLite.JournalEntry;
+import au.edu.utas.cong.assignment_2.SQLite.JournalEntryHelper;
+import au.edu.utas.cong.assignment_2.SQLite.JournalEntryManager;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -40,6 +46,9 @@ public class MainActivity extends AppCompatActivity {
     public static final int REQUEST_SHARE_IMAGE = 2;
     private static final String IMAGE_UNSPECIFIED = "image/*";
     private final  int IMAGE_CODE = 0;
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,12 +67,10 @@ public class MainActivity extends AppCompatActivity {
         });
 
         Calendar calendar = Calendar.getInstance();
-        String currentDate = DateFormat.getDateInstance().format(calendar.getTime());
+        final String currentDate = DateFormat.getDateInstance().format(calendar.getTime());
         ///  String time = "Current Time;" + format.format(calendar.getTime());
 
 
-        TextView textView = findViewById(R.id.txtdate);
-        //  TextView textshow = (TextView) findViewById(id.time);
 
         TextView textViewDate = findViewById(R.id.txtdate);
         textViewDate.setText(currentDate);
@@ -121,7 +128,47 @@ public class MainActivity extends AppCompatActivity {
         Location location = lm.getLastKnownLocation(provider);
         updateWithNewLocation(location);
         lm.requestLocationUpdates(provider, 2000, 10, locationListener);
+
+        /**
+         * Database Operation
+         * 1.When pressing the ok button, first check whether JournalEntry table exists or not
+         * 2. if not exists, create a new table, then add Entry object into db
+         * 3. if exists, just add into db
+         */
+       // SQLiteDatabase db = new JournalEntryHelper(MainActivity.this).getWritableDatabase();
+        Button btnOk = findViewById(R.id.btnOk);
+        btnOk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                JournalEntryManager mgr = new JournalEntryManager(MainActivity.this);
+//                JournalEntry jEntry = new JournalEntry();
+//                jEntry.setTitle("title");
+//                jEntry.setBodyText("BodyText");
+//                jEntry.setMood(1);
+//                jEntry.setDate(currentDate);
+//                jEntry.setLocation("20 Sandy Bay");
+//                jEntry.setImage("/image/*");
+//                mgr.addEntry(jEntry);
+                showToast(mgr);
+                Log.e("Finish","Image");
+//                ContentValues cv = new ContentValues();
+//                cv.put("date",currentDate);
+//                cv.put("title","title");
+//                cv.put("bodyText", "bodyText");
+//                cv.put("mood",1);
+//                cv.put("location","20 Sandy Bay");
+//                cv.put("image","/image/*");
+
+            }
+        });
     }
+    public  void showToast(JournalEntryManager jeM){
+         Toast.makeText(this,jeM.query().get(0).image+" ",Toast.LENGTH_LONG).show();
+
+    }
+
+
+
     private  final LocationListener locationListener = new LocationListener() {
         @Override
         public void onLocationChanged(android.location.Location location) {
@@ -143,42 +190,44 @@ public class MainActivity extends AppCompatActivity {
             updateWithNewLocation(null);
         }
     };
-    private void updateWithNewLocation(android.location.Location location){
-      String latLongString;
-      TextView locationInfo = findViewById(R.id.txtLocation);
-      if (location!=null){
-          double lat = location.getLatitude();
-          double lng = location.getLongitude();
+    private void updateWithNewLocation(android.location.Location location) {
+        String latLongString;
+        TextView locationInfo = findViewById(R.id.txtLocation);
+        if (location != null) {
+            double lat = location.getLatitude();
+            double lng = location.getLongitude();
 
-          Geocoder geocoder = new Geocoder(this);
-          List places = null;
-          try{
-              places = geocoder.getFromLocation(location.getLatitude(),location.getLongitude(),5);
-              //  test
-              //  Toast.makeText(this,places.size()+"", Toast.LENGTH_LONG).show();
-              Log.e("Places size",places.size()+"");
-          } catch (IOException e) {
-              e.printStackTrace();
-          }
-          String placename  = "";
-          if (places!=null&& places.size()>0){
-              placename = ((Address)places.get(0)).getAddressLine(0);
-          }
-          latLongString = "Latitude: "+lat+"/nLongtitude: "+lng;
-          locationInfo.setText(placename);
-          Log.e("current location info: ", ((Address)places.get(0)).getAddressLine(0));
+            Geocoder geocoder = new Geocoder(this);
+            List places = null;
+            try {
+                places = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 5);
+                //  test
+                //  Toast.makeText(this,places.size()+"", Toast.LENGTH_LONG).show();
+                Log.e("Places size", places.size() + "");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            String placename = "";
+            if (places != null && places.size() > 0) {
+                placename = ((Address) places.get(0)).getAddressLine(0);
+            }
+            latLongString = "Latitude: " + lat + "/nLongtitude: " + lng;
+            locationInfo.setText(placename);
+            Log.e("current location info: ", ((Address) places.get(0)).getAddressLine(0));
 
-          //Toast.makeText(this,placename,Toast.LENGTH_LONG).show();
-      }else{
-          locationInfo.setText("Cant get location info");
-      }
-
-      /**
-       * GET locationINFO function ends
-       */
-
+            //Toast.makeText(this,placename,Toast.LENGTH_LONG).show();
+        } else {
+            locationInfo.setText("Cant get location info");
+        }
 
     }
+    /**
+     * GET locationINFO function ends
+     */
+
+
+
+
     /**
      * Camera function
      * Open camera function, share image   /  then share entry with text info and image together.
