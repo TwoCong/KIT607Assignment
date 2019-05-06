@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
+<LinearLayout
+    android:layout_width="64dp"
+    android:layout_height="64dp"
+    android:orientation="vertical">
+    <ImageView
+        android:id="@+id/imgVMood"
+        android:layout_marginLeft="16dp"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+         />
+    <TextView
+        android:id="@+id/txtVDate"
+        android:layout_width="match_parent"
+        android:layout_height="16dp"
+        android:text="Date"/>
+    <TextView
+        android:id="@+id/txtVTime"
+        android:layout_width="match_parent"
+        android:layout_height="16dp"
+        android:text="Time"/>
+
+</LinearLayout>
+    <LinearLayout
+        android:layout_width="248dp"
+        android:layout_height="64dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/txtVTitle"
+                android:layout_width="212dp"
+                android:layout_height="match_parent"
+
+                android:orientation="vertical"
+                android:text="txtVTitle" />
+
+            <ImageButton
+                android:id="@+id/imgBShare"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                app:srcCompat="@android:drawable/ic_menu_share" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/txtVBodyText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="txtVBodyText" />
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/imgVPicture"
+        android:layout_width="wrap_content"
+        android:layout_height="45dp"
+        android:layout_weight="1"
+        app:srcCompat="@android:drawable/ic_menu_share" />
+
+</LinearLayout>
+

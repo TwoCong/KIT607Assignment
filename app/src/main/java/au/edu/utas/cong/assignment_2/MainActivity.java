@@ -47,9 +47,6 @@ public class MainActivity extends AppCompatActivity {
     private static final String IMAGE_UNSPECIFIED = "image/*";
     private final  int IMAGE_CODE = 0;
 
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -105,14 +102,7 @@ public class MainActivity extends AppCompatActivity {
         for (int i = 0; i< providerList.size();i++){
             Log.e("TAG: ",providerList.get(i));
         }
-//        String provider = lm.GPS_PROVIDER;
-//        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)!=PackageManager.PERMISSION_GRANTED
-//                && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)!=PackageManager.PERMISSION_GRANTED){
-//            location.setText("NO permission");
-//        }
-//        else{
-//            location.setText(lm.getLastKnownLocation(provider).toString());
-//        }
+
         Criteria criteria = new Criteria();
         criteria.setAccuracy(Criteria.ACCURACY_FINE);
         criteria.setAltitudeRequired(false);
@@ -141,15 +131,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 JournalEntryManager mgr = new JournalEntryManager(MainActivity.this);
-//                JournalEntry jEntry = new JournalEntry();
-//                jEntry.setTitle("title");
-//                jEntry.setBodyText("BodyText");
-//                jEntry.setMood(1);
-//                jEntry.setDate(currentDate);
-//                jEntry.setLocation("20 Sandy Bay");
-//                jEntry.setImage("/image/*");
-//                mgr.addEntry(jEntry);
-                showToast(mgr);
+                JournalEntry jEntry = new JournalEntry();
+                jEntry.setTitle("title");
+                jEntry.setBodyText("BodyText");
+                jEntry.setMood(1);
+                jEntry.setDate(currentDate);
+                jEntry.setLocation("20 Sandy Bay");
+                jEntry.setImage("/image/*");
+                mgr.addEntry(jEntry);
+               // showToast(mgr);
                 Log.e("Finish","Image");
 //                ContentValues cv = new ContentValues();
 //                cv.put("date",currentDate);

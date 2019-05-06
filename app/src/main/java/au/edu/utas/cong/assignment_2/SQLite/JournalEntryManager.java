@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.view.View;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,7 +52,7 @@ public class JournalEntryManager {
      * For pratical use, add parameter,
      * @return
      */
-    public List<JournalEntry> query(){
+    public ArrayList<JournalEntry> query(){
         ArrayList<JournalEntry> jEntryList = new ArrayList<JournalEntry>();
         Cursor c=queryTheCursor();
         while (c.moveToNext()){
