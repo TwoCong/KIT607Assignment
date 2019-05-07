@@ -42,6 +42,14 @@ import au.edu.utas.cong.assignment_2.SQLite.JournalEntryManager;
 
 public class MainActivity extends AppCompatActivity {
 
+//    声明一个类AFactory，里面有静态变量public static Activity A；在A中调用
+//
+//    AFactory.A = this;
+//
+//这样在b中就可以直接调用AFactory.A.function();就行了
+//
+//    http://www.oschina.net/question/912920_83748
+
     public static final int REQUEST_IMAGE_CAPETURE = 1;
     public static final int REQUEST_SHARE_IMAGE = 2;
     private static final String IMAGE_UNSPECIFIED = "image/*";
@@ -197,7 +205,7 @@ public class MainActivity extends AppCompatActivity {
             try {
                 places = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 5);
                 //  test
-                //  Toast.makeText(this,places.size()+"", Toast.LENGTH_LONG).show();
+                // Toast.makeText(this,places.size()+"", Toast.LENGTH_LONG).show();
                 //Log.e("Places size", places.size() + "");
             } catch (IOException e) {
                 e.printStackTrace();
