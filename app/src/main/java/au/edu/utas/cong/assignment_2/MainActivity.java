@@ -147,7 +147,6 @@ public class MainActivity extends AppCompatActivity {
                 public void onClick(View v) {
                     //check any other mood is verified or not
                     //if any another has checked, check same level or not, same level, change image, not same, change other into mood, change this into verified.
-
                     int a;
                     boolean flag = false;
                     for (a = 0; a < moodList.size(); a++) {
@@ -161,8 +160,10 @@ public class MainActivity extends AppCompatActivity {
                             if (a == j) {
                                 mood.setImageResource((Integer) imgList.get(a));
                                 mood.setTag(imgList.get(j));
-                                Log.e("Checked", "2");
+                                //Log.e("Checked", "2");
                                 flag = true;
+                                moodLevel = a;
+                                Log.e("Mood Level", moodLevel+"");
 
                             }else{
                                 //不是一个的话，把moodlist a换成imglist a， 然后把moodlist j 换成verified
@@ -170,7 +171,8 @@ public class MainActivity extends AppCompatActivity {
                                 moodList.get(a).setTag(imgList.get(a));
                                 moodList.get(j).setImageResource(R.drawable.verified);
                                 moodList.get(j).setTag(R.drawable.verified);
-                                Log.e("Checked", "1");
+                                moodLevel = j;
+                                Log.e("Mood Level", moodLevel+"");
                             }
                             break;
                         }
@@ -178,6 +180,8 @@ public class MainActivity extends AppCompatActivity {
                     if (flag==false) {
                         mood.setImageResource(R.drawable.verified);
                         mood.setTag(R.drawable.verified);
+                        moodLevel=j;
+                        Log.e("Mood Level", moodLevel+"");
                     }
                 }
 
