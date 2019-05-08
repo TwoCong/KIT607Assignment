@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -14,9 +15,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class TimeLine extends AppCompatActivity {
-
-
-    SQLiteDatabase db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,34 +40,48 @@ public class TimeLine extends AppCompatActivity {
                 startActivity(i);
             }
         });
-
+        Database databaseConnection = new Database(this);
+        final SQLiteDatabase db = databaseConnection.open();
         final ArrayList<JournalEntry> jeList = JournalEntryTable.selectAll(db);
+        Log.e("有",jeList.size()+"个");
+        for (int i = 0;i<jeList.size();i++){
+            Log.d("Title",jeList.get(i).getTitle());
+            Log.d("Image",jeList.get(i).getImage());
+            Log.d("Mood",jeList.get(i).getMood()+"");
+            Log.d("Location",jeList.get(i).getLocation());
 
-        //定义一个HashMap构成的列表以键值对的方式存放数据
-        ArrayList<HashMap<String, Object>> listItem = new ArrayList<HashMap<String,Object>>();
-//循环填充数据
-        for(int i=0;i<jeList.size();i++)        {
-            HashMap<String,Object> map = new HashMap<String,Object>();
-            map.put("title", jeList.get(i).getTitle());
-            map.put("bodyText", jeList.get(i).getBodyText());
-            map.put("date", jeList.get(i).getDate());
-            map.put("mood", jeList.get(i).getMood());
-            map.put("location",jeList.get(i).getLocation());
-            map.put("image",jeList.get(i).getImage());
-            listItem.add(map);
+            Log.d("----","---------");
         }
 
-//构造SimpleAdapter对象，设置适配器
-        SimpleAdapter mSimpleAdapter = new SimpleAdapter(this,
-                listItem,//需要绑定的数据
-                R.layout.entry_list_item,//每一行的布局
-                new String[] {"title","bodyText"},
-//数组中的数据源的键对应到定义布局的View中
-                new int[] {R.id.eTxtTitle,R.id.txtVBodyText});
-
-//为ListView绑定适配器
-        entryList.setAdapter(mSimpleAdapter);
-
+//        //定义一个HashMap构成的列表以键值对的方式存放数据
+//        ArrayList<HashMap<String, Object>> listItem = new ArrayList<HashMap<String,Object>>();
+////循环填充数据
+//        for(int i=0;i<jeList.size();i++)        {
+//            HashMap<String,Object> map = new HashMap<String,Object>();
+//            map.put("title", jeList.get(i).getTitle());
+//            map.put("bodyText", jeList.get(i).getBodyText());
+//            map.put("date", jeList.get(i).getDate());
+//            map.put("mood", jeList.get(i).getMood());
+//            map.put("location",jeList.get(i).getLocation());
+//            map.put("image",jeList.get(i).getImage());
+//            listItem.add(map);
+//        }
+//
+////构造SimpleAdapter对象，设置适配器
+//        SimpleAdapter mSimpleAdapter = new SimpleAdapter(this,
+//                listItem,//需要绑定的数据
+//                R.layout.entry_list_item,//每一行的布局
+//                new String[] {"bodyText","date","location"},
+////数组中的数据源的键对应到定义布局的View中
+//                new int[] {R.id.txtVBodyText,R.id.txtVDate,R.id.txtVLocation});
+//
+////为ListView绑定适配器
+//        entryList.setAdapter(mSimpleAdapter);
+        JEntryAdapter jEntryAdapter = new JEntryAdapter(
+                getApplicationContext(),R.layout.entry_list_item,jeList
+        );
+        entryList.setAdapter(jEntryAdapter);
+        db.close();
 
 
 //        final ArrayList<JournalEntry> items = new ArrayList<JournalEntry>();

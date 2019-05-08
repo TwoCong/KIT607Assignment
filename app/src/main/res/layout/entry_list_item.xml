@@ -4,70 +4,88 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal">
-<LinearLayout
-    android:layout_width="64dp"
-    android:layout_height="64dp"
     android:orientation="vertical">
-    <ImageView
-        android:id="@+id/imgVMood"
-        android:layout_marginLeft="16dp"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-         />
-    <TextView
-        android:id="@+id/txtVDate"
-        android:layout_width="match_parent"
-        android:layout_height="16dp"
-        android:text="Date"/>
-    <TextView
-        android:id="@+id/txtVTime"
-        android:layout_width="match_parent"
-        android:layout_height="16dp"
-        android:text="Time"/>
 
-</LinearLayout>
     <LinearLayout
-        android:layout_width="248dp"
-        android:layout_height="64dp"
-        android:orientation="vertical">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="25dp"
-            android:orientation="horizontal">
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/imgVMood"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginLeft="16dp" />
 
             <TextView
-                android:id="@+id/eTxtTitle"
-                android:layout_width="212dp"
-                android:layout_height="match_parent"
+                android:id="@+id/txtVDate"
+                android:layout_width="match_parent"
+                android:layout_height="16dp"
+                android:text="Date" />
 
-                android:orientation="vertical"
-                android:text="txtVTitle" />
-
-            <ImageButton
-                android:id="@+id/imgBShare"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                app:srcCompat="@android:drawable/ic_menu_share" />
+            <TextView
+                android:id="@+id/txtVTime"
+                android:layout_width="match_parent"
+                android:layout_height="16dp"
+                android:text="Time" />
 
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/txtVBodyText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+        <LinearLayout
+            android:layout_width="248dp"
+            android:layout_height="64dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="25dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/eTxtTitle"
+                    android:layout_width="212dp"
+                    android:layout_height="match_parent"
+
+                    android:orientation="vertical"
+                    android:text="txtVTitle" />
+
+                <ImageButton
+                    android:id="@+id/imgBShare"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    app:srcCompat="@android:drawable/ic_menu_share" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/txtVBodyText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="txtVBodyText" />
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/imgVPicture"
+            android:layout_width="wrap_content"
+            android:layout_height="45dp"
             android:layout_weight="1"
-            android:text="txtVBodyText" />
+            app:srcCompat="@android:drawable/ic_menu_share" />
 
     </LinearLayout>
 
-    <ImageView
-        android:id="@+id/imgVPicture"
-        android:layout_width="wrap_content"
-        android:layout_height="45dp"
+    <TextView
+        android:id="@+id/txtVLocation"
+        android:layout_width="match_parent"
+        android:layout_height="32dp"
         android:layout_weight="1"
-        app:srcCompat="@android:drawable/ic_menu_share" />
+        android:text="location" />
 
 </LinearLayout>
 

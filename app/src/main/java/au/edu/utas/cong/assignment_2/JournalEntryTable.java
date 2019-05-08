@@ -3,6 +3,7 @@ package au.edu.utas.cong.assignment_2;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import java.util.ArrayList;
 
@@ -33,12 +34,12 @@ public class JournalEntryTable {
     public static final String KEY_LOCATION = "location";
     public static final String KEY_IMAGE = "image";
 
-    public static final String CREATE_STATEMENT="create table "
+    public static final String CREATE_STATEMENT="Create table "
             +TABLE_NAME
-            + "(" + KEY_ENTRY_ID+" integer primary key autoincrement, "
+            + " (" + KEY_ENTRY_ID+" integer primary key autoincrement, "
             +KEY_TITLE+" TEXT not null, "
             + KEY_BODYSUIT + " TEXT not null, "
-            +KEY_MOOD+" integer not null, "
+            +KEY_MOOD+" int not null, "
             +KEY_DATE+ " TEXT, "
             +KEY_LOCATION+ " TEXT, "
             +KEY_IMAGE+ " string not null "
@@ -65,7 +66,7 @@ public class JournalEntryTable {
                 c.moveToNext();
             }
         }
-
+        Log.e("Notice", "select All Successfully");
         return results;
     }
 

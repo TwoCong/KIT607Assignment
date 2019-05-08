@@ -31,7 +31,11 @@ public class JEntryAdapter extends ArrayAdapter<JournalEntry> {
         ImageButton share = row.findViewById(R.id.imgBShare);
         TextView bodyText = row.findViewById(R.id.txtVBodyText);
         ImageView picture = row.findViewById(R.id.imgVPicture);
+        TextView location = row.findViewById(R.id.txtVLocation);
+        //Format 2019-10-10 20:00 to Time: 20:00, Date 2019 10 10
         date.setText(jE.getDate());
+        title.setText(jE.getTitle());
+
 
 
         return row;

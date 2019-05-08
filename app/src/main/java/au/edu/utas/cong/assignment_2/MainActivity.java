@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         //Get Time data
-        SimpleDateFormat sd=new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        SimpleDateFormat sd=new SimpleDateFormat("yyyyMMdd HH:mm");
         final String currentDate =sd.format(new Date(System.currentTimeMillis()));
         TextView date = findViewById(R.id.txtVDate);
         date.setText(currentDate);
@@ -255,6 +255,7 @@ public class MainActivity extends AppCompatActivity {
                 }else {
                     Log.e("Mood Level ", String.valueOf(mLevel[0]));
                     JournalEntry jE = new JournalEntry();
+
                     jE.setTitle(eTxtTitle.getText().toString());
                     jE.setBodyText(eTxtBodytxt.getText().toString());
                     jE.setDate(currentDate);
@@ -262,11 +263,17 @@ public class MainActivity extends AppCompatActivity {
                     jE.setLocation(updateWithNewLocation(location));
                     jE.setImage(path.getText().toString());
 
+
                     JournalEntryTable.insert(db,jE);
+
+//                    final ArrayList<JournalEntry> jes = JournalEntryTable.selectAll(db);
+//                    String  i =String.valueOf(jes.size());
+//                    Log.d("表里有",i+"个");
 
                 }
             }
         });
+        //db.close();
     }
 
     private  final LocationListener locationListener = new LocationListener() {
