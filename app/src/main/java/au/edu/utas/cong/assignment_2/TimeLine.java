@@ -1,11 +1,14 @@
 package au.edu.utas.cong.assignment_2;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
@@ -16,12 +19,12 @@ import java.util.HashMap;
 
 public class TimeLine extends AppCompatActivity {
 
+    private static final int REQUEST_MODIFY_ENTRY = 4;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_time_line);
 
-        ListView entryList = findViewById(R.id.listViewEntry);
 
         ImageButton newentry = (ImageButton)findViewById(R.id.btnNewentry);
         newentry.setOnClickListener(new View.OnClickListener() {
@@ -77,12 +80,46 @@ public class TimeLine extends AppCompatActivity {
 //
 ////为ListView绑定适配器
 //        entryList.setAdapter(mSimpleAdapter);
-        JEntryAdapter jEntryAdapter = new JEntryAdapter(
+
+        final ListView entryList = findViewById(R.id.listViewEntry);
+        final JEntryAdapter jEntryAdapter = new JEntryAdapter(
                 getApplicationContext(),R.layout.entry_list_item,jeList
         );
         entryList.setAdapter(jEntryAdapter);
-        db.close();
 
+        //Detecting item tap
+        entryList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+//                AlertDialog.Builder builder = new AlertDialog.Builder(TimeLine.this);
+//                builder.setMessage(jeList.get(i).get_id()).setTitle("Tapped");
+//                AlertDialog dialog =builder.create();
+//                dialog.show();
+                Log.e("Tapped","Succe");
+                final JournalEntry j = jeList.get(i);
+                AlertDialog.Builder builder = new AlertDialog.Builder(TimeLine.this);
+                builder.setTitle("Update");
+                builder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        JournalEntryTable.delete(db,j.get_id());
+                        ArrayList<JournalEntry> jeList = JournalEntryTable.selectAll(db);
+                        JEntryAdapter jEntryAdapter = new JEntryAdapter(
+                                getApplicationContext(),R.layout.entry_list_item,jeList
+                        );
+                        entryList.setAdapter(jEntryAdapter);
+                    }
+                });
+                builder.setNegativeButton("Modify", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        Intent intent = new Intent(TimeLine.this,MainActivity.class);
+                        startActivityForResult(intent,REQUEST_MODIFY_ENTRY);
+                    }
+                });
+                builder.create().show();
+            }
+        });
 
 //        final ArrayList<JournalEntry> items = new ArrayList<JournalEntry>();
 //

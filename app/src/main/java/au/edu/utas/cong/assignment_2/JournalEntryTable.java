@@ -56,7 +56,7 @@ public class JournalEntryTable {
         db.insert(TABLE_NAME,null,values);
     }
     public static ArrayList<JournalEntry> selectAll(SQLiteDatabase db){
-        ArrayList<JournalEntry> results = new ArrayList<JournalEntry>();
+        ArrayList<JournalEntry> results = new ArrayList<>();
         Cursor c = db.query(TABLE_NAME,null,null,null,null,null,null);
         if (c!=null){
             c.moveToFirst();
@@ -68,6 +68,26 @@ public class JournalEntryTable {
         }
         Log.e("Notice", "select All Successfully");
         return results;
+    }
+    public static void update(SQLiteDatabase db, JournalEntry j){
+        ContentValues values = new ContentValues();
+        values.put(KEY_TITLE,j.getTitle());
+        values.put(KEY_BODYSUIT,j.getBodyText());
+        values.put(KEY_DATE,j.getDate());
+        values.put(KEY_MOOD,j.getMood());
+        values.put(KEY_LOCATION,j.getLocation());
+        values.put(KEY_IMAGE,j.getImage());
+
+        db.update(TABLE_NAME,values,KEY_ENTRY_ID+"= ?",
+                new String[]{""+j.get_id()});
+    }
+    public static void delete(SQLiteDatabase db,int i){
+        db.delete(TABLE_NAME,KEY_ENTRY_ID+"="+i,null);
+        Log.d("delete", "成功");
+    }
+    public static JournalEntry getByID(SQLiteDatabase db, int id){
+        Cursor c = db.query(TABLE_NAME,null,KEY_ENTRY_ID+"="+id,null,null,null,null);
+        return createFromCursor(c);
     }
 
 }

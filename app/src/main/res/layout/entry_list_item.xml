@@ -8,64 +8,64 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="112dp"
         android:orientation="horizontal">
 
         <LinearLayout
-            android:layout_width="64dp"
-            android:layout_height="64dp"
+            android:layout_width="74dp"
+            android:layout_height="match_parent"
             android:orientation="vertical">
 
             <ImageView
                 android:id="@+id/imgVMood"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
+                android:layout_width="50dp"
+                android:layout_height="54dp"
                 android:layout_marginLeft="16dp" />
 
             <TextView
                 android:id="@+id/txtVDate"
                 android:layout_width="match_parent"
-                android:layout_height="16dp"
+                android:layout_height="30dp"
                 android:text="Date" />
 
             <TextView
                 android:id="@+id/txtVTime"
                 android:layout_width="match_parent"
-                android:layout_height="16dp"
+                android:layout_height="62dp"
                 android:text="Time" />
 
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="248dp"
-            android:layout_height="64dp"
+            android:layout_width="225dp"
+            android:layout_height="match_parent"
             android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="25dp"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/eTxtTitle"
-                    android:layout_width="212dp"
+                    android:layout_width="181dp"
                     android:layout_height="match_parent"
 
                     android:orientation="vertical"
                     android:text="txtVTitle" />
 
-                <ImageButton
-                    android:id="@+id/imgBShare"
+                <ImageView
+                    android:id="@+id/imgVShare"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    app:srcCompat="@android:drawable/ic_menu_share" />
+                    android:layout_height="36dp"
+                    app:srcCompat="@drawable/share" />
 
             </LinearLayout>
 
             <TextView
                 android:id="@+id/txtVBodyText"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="61dp"
                 android:layout_weight="1"
                 android:text="txtVBodyText" />
 
@@ -74,7 +74,7 @@
         <ImageView
             android:id="@+id/imgVPicture"
             android:layout_width="wrap_content"
-            android:layout_height="45dp"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             app:srcCompat="@android:drawable/ic_menu_share" />
 
