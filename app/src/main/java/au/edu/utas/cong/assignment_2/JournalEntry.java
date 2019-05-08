@@ -1,4 +1,4 @@
-package au.edu.utas.cong.assignment_2.SQLite;
+package au.edu.utas.cong.assignment_2;
 
 public class JournalEntry {
 

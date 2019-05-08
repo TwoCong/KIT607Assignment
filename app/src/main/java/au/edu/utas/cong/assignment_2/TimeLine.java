@@ -13,9 +13,6 @@ import android.widget.SimpleAdapter;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import au.edu.utas.cong.assignment_2.SQLite.JournalEntry;
-import au.edu.utas.cong.assignment_2.SQLite.JournalEntryManager;
-
 public class TimeLine extends AppCompatActivity {
 
 
@@ -46,8 +43,7 @@ public class TimeLine extends AppCompatActivity {
             }
         });
 
-        JournalEntryManager mgr = new JournalEntryManager(TimeLine.this);
-        ArrayList<JournalEntry> jeList = mgr.query();
+        final ArrayList<JournalEntry> jeList = JournalEntryTable.selectAll(db);
 
         //定义一个HashMap构成的列表以键值对的方式存放数据
         ArrayList<HashMap<String, Object>> listItem = new ArrayList<HashMap<String,Object>>();
@@ -67,7 +63,7 @@ public class TimeLine extends AppCompatActivity {
         SimpleAdapter mSimpleAdapter = new SimpleAdapter(this,
                 listItem,//需要绑定的数据
                 R.layout.entry_list_item,//每一行的布局
-                new String[] {"date","date"},
+                new String[] {"title","bodyText"},
 //数组中的数据源的键对应到定义布局的View中
                 new int[] {R.id.eTxtTitle,R.id.txtVBodyText});
 

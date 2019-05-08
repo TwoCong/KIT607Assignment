@@ -12,8 +12,6 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import au.edu.utas.cong.assignment_2.SQLite.JournalEntry;
-
 public class JEntryAdapter extends ArrayAdapter<JournalEntry> {
     private int mLayoutResourceID;
 

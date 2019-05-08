@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.location.Address;
@@ -32,21 +33,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.lang.reflect.Array;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import au.edu.utas.cong.assignment_2.SQLite.JournalEntryManager;
-
 import static au.edu.utas.cong.assignment_2.Camera.REQUEST_IMAGE_CAPTURE;
-
 
 public class MainActivity extends AppCompatActivity {
 
@@ -59,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
     private static String mCurrentPhotoPath;
     //private final  int IMAGE_CODE = 0;
     private ImageView myImageView;
-    private int moodLevel;
+     private int moodLevel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -138,7 +133,9 @@ public class MainActivity extends AppCompatActivity {
         moodList.get(4).setTag(imgList.get(4));
         moodList.get(5).setTag(imgList.get(5));
         moodList.get(6).setTag(imgList.get(6));
-
+        final TextView txtVMoodLevel = findViewById(R.id.txtVMoodLevel);
+        txtVMoodLevel.setText("How do you feel today");
+        final int[] mLevel = new int[1];
         for (int i =0;i<moodList.size();i++){
             final ImageView mood=moodList.get(i);
             final int j=i;
@@ -154,7 +151,7 @@ public class MainActivity extends AppCompatActivity {
                             //已经选择过了
                             //a: 之前对号的
                             //j：现在需要变成对号的
-                            Log.e("Selected", String.valueOf(a));
+                            Log.e("之前第 ", String.valueOf(a)+"个被选中");
                             //当前点击 和之前verified是同一个的话
                             //把当前换成imglist里面的
                             if (a == j) {
@@ -163,7 +160,9 @@ public class MainActivity extends AppCompatActivity {
                                 //Log.e("Checked", "2");
                                 flag = true;
                                 moodLevel = a;
-                                Log.e("Mood Level", moodLevel+"");
+                                mLevel[0]=a;
+                                Log.e("现在取消第", a+" 个的选中状态）");
+                                //imgList.get(a).toString();
 
                             }else{
                                 //不是一个的话，把moodlist a换成imglist a， 然后把moodlist j 换成verified
@@ -172,7 +171,8 @@ public class MainActivity extends AppCompatActivity {
                                 moodList.get(j).setImageResource(R.drawable.verified);
                                 moodList.get(j).setTag(R.drawable.verified);
                                 moodLevel = j;
-                                Log.e("Mood Level", moodLevel+"");
+                                mLevel[0] =j;
+                                Log.e("现在选中第", j+"个， 取消第"+a+"个的选中状态");
                             }
                             break;
                         }
@@ -181,21 +181,28 @@ public class MainActivity extends AppCompatActivity {
                         mood.setImageResource(R.drawable.verified);
                         mood.setTag(R.drawable.verified);
                         moodLevel=j;
-                        Log.e("Mood Level", moodLevel+"");
+                        mLevel[0]=j;
+                        Log.e("之前没有任何一个被选中，现在选中第", j+"个");
                     }
+                       // Log.e(" ",mLevel[0]+"");
                 }
 
+
             });
+
         }
 
-
-
-
-
-
+        for (int i =0;i<moodList.size();i++){
+                if (moodList.get(i).getTag().equals( R.drawable.verified)) {
+                    mLevel[0]=i;
+                    //Log.e(" ",mLevel[0]+"");
+                }
+                else{
+                    mLevel[0]=99;
+                    //Log.e("Nothing selected","");
+                }
+        }
        // ImageButton btnShare = findViewById(R.id.imgBShare);
-
-
         /**
          * get Location info starts
          */
@@ -229,6 +236,8 @@ public class MainActivity extends AppCompatActivity {
          * 2. if not exists, create a new table, then add Entry object into db
          * 3. if exists, just add into db
          */
+        Database databaseConnection = new Database(this);
+        final SQLiteDatabase db = databaseConnection.open();
        // SQLiteDatabase db = new JournalEntryHelper(MainActivity.this).getWritableDatabase();
         Button btnOk = findViewById(R.id.btnOk);
         btnOk.setOnClickListener(new View.OnClickListener() {
@@ -241,32 +250,25 @@ public class MainActivity extends AppCompatActivity {
                 Log.e("Time test ",currentDate);
                 Log.e("location test ",updateWithNewLocation(location));
                 Log.e("Path test", path.getText().toString());
-//                JournalEntryManager mgr = new JournalEntryManager(MainActivity.this);
-//                JournalEntry jEntry = new JournalEntry();
-//                jEntry.setTitle("title");
-//                jEntry.setBodyText("BodyText");
-//                jEntry.setMood(1);
-//                jEntry.setDate(currentDate);
-//                jEntry.setLocation("20 Sandy Bay");
-//                jEntry.setImage("/image/*");
-//                mgr.addEntry(jEntry);
-               // showToast(mgr);
+                if (mLevel[0]==99){
+                    Log.e("","Nothing selected");
+                }else {
+                    Log.e("Mood Level ", String.valueOf(mLevel[0]));
+                    JournalEntry jE = new JournalEntry();
+                    jE.setTitle(eTxtTitle.getText().toString());
+                    jE.setBodyText(eTxtBodytxt.getText().toString());
+                    jE.setDate(currentDate);
+                    jE.setMood(mLevel[0]);
+                    jE.setLocation(updateWithNewLocation(location));
+                    jE.setImage(path.getText().toString());
 
-//                ContentValues cv = new ContentValues();
-//                cv.put("date",currentDate);
-//                cv.put("title","title");
-//                cv.put("bodyText", "bodyText");
-//                cv.put("mood",1);
-//                cv.put("location","20 Sandy Bay");
-//                cv.put("image","/image/*");
+                    JournalEntryTable.insert(db,jE);
 
+                }
             }
         });
     }
-    public  void showToast(JournalEntryManager jeM){
-         Toast.makeText(this,jeM.query().get(0).image+" ",Toast.LENGTH_LONG).show();
 
-    }
     private  final LocationListener locationListener = new LocationListener() {
         @Override
         public void onLocationChanged(android.location.Location location) {
