@@ -35,7 +35,7 @@ public class JEntryAdapter extends ArrayAdapter<JournalEntry> {
         //Format 2019-10-10 20:00 to Time: 20:00, Date 2019 10 10
         date.setText(jE.getDate());
         title.setText(jE.getTitle());
-
+        //
 
 
         return row;
